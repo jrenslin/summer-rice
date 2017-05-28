@@ -1,0 +1,84 @@
+
+########################################
+##### Reloading ########################
+########################################
+
+auto-reload                     yes
+refresh-on-startup              yes
+# reload-only-visible-feeds     no
+reload-time                     60
+reload-threads                  3
+
+download-retries                1
+download-full-page              no
+download-timeout                30
+
+########################################
+##### Display ##########################
+########################################
+
+always-display-description      false
+# article-sort-order            date-reverse
+articlelist-format              " %f%6i ···· 📅 %D ···· %t %>  ✍%10a ···· 💾%6L"
+display-article-progress        yes
+feedlist-format                 " %n %4i ···· %t %> ···· %11u"
+
+########################################
+##### Colors ###########################
+########################################
+
+color                           background           blue         default
+color                           listnormal           default      default
+color                           listfocus            white        color8
+color                           listnormal_unread    color1       default       bold
+color                           listfocus_unread     color5       color8        bold
+color                           info                 color7       color0        bold
+color                           article              default      default
+
+########################################
+##### Highlighting #####################
+########################################
+
+highlight             all     "newsbeuter"                            red         default       default
+highlight-article             "author =~ \"Andreas Krennmair\""       green       default       bold
+highlight-article             "author =~ \"Jayeel Cornelio\""         green       default       bold
+highlight-article             "author =~ \"Lisandro Claudio\""        green       default       bold
+highlight-article             "content =~ \"OFWs\""                   blue        default
+highlight-article             "content =~ \"Migrant\""                blue        default
+highlight-article             "content =~ \"foreign\ workers\""       blue        default
+highlight-article             "content =~ \"migration\""              blue        default
+
+highlight             article "^(Feed):.*$"                           black       default       bold
+highlight             article "^(Title):.*$"                          blue        default       bold
+highlight             article "https?://[^ ]+"                        cyan        default
+highlight             article "\\[image\\ [0-9]+\\]"                  green       default
+
+########################################
+##### Interaction ######################
+########################################
+
+browser                       iceweasel
+notify-program                dunst
+# notify-always               no
+# notify-screen               no
+# notify-beep                 no
+
+########################################
+##### Podcasts #########################
+########################################
+
+# podcast-auto-enqueue        no
+
+########################################
+##### Keybindings ######################
+########################################
+
+# bind-key
+
+########################################
+##### Bookmarking and saving ###########
+########################################
+
+bookmark-cmd                  "~/shortcut_scripts/newsbeuter-bookmarking.sh"
+save-path                     "~/Sync/Newsbeuter"
+download-path                 "~/Downloads"

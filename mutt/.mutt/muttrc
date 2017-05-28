@@ -1,0 +1,185 @@
+# --------------------------------------------------------------------------
+# Link to emacs and khard
+# --------------------------------------------------------------------------
+
+# Get comfy
+set editor=emacs
+set query_command= "khard email --parsable --search-in-source-files %s"
+bind editor <Tab> complete-query
+bind editor ^T    complete
+
+macro index,pager A \
+    "<pipe-message>khard add-email<return>" \
+    "add the sender email address to khard"
+
+# Set linear view instead of threads
+set sort=date
+
+# --------------------------------------------------------------------------
+# Set default mailbox
+# --------------------------------------------------------------------------
+
+set spoolfile = "+jrenslin/INBOX"
+
+source ~/.mutt/mailboxes
+
+# --------------------------------------------------------------------------
+# Set accounts
+# --------------------------------------------------------------------------
+
+folder-hook /*                    source ~/.mutt/accounts/jrenslin
+folder-hook yahoo/*               source ~/.mutt/accounts/yahoo
+# folder-hook digitalsepia/*      source ~/.mutt/accounts/digitalsepia
+folder-hook livecom/*             source ~/.mutt/accounts/livecom
+
+# --------------------------------------------------------------------------
+# Offlineimap settings
+# --------------------------------------------------------------------------
+
+# IMAP: offlineimap
+set folder = "~/Mail"
+source ~/.mutt/mailboxes
+set spoolfile = "+jrenslin/INBOX"
+set record = "+jrenslin/INBOX.Sent"
+set postponed = "+jrenslin/INBOX.Drafts"
+
+# --------------------------------------------------------------------------
+# Save-Hooks
+# --------------------------------------------------------------------------
+
+#### Omitted #### 
+
+# General save hook
+save-hook "~s .*"                                   =jrenslin/INBOX.Archive
+
+# --------------------------------------------------------------------------
+# Colors
+# --------------------------------------------------------------------------
+
+color     normal          default            default
+color	  attachment      blue               default
+color     hdrdefault      white	             default
+color     header          brightblack        default  "^Received:"
+color	  header          brightgreen        default  "^message-id:"
+color	  header          brightgreen        default  "^x-mailer:"
+color	  header          brightgreen        default  "^user-agent:"
+color	  header          brightblue         default  "^date: "
+#color	  header          brightblue         default  "^from: "
+color	  header          red                default  "^from: "
+color	  header          red	             default  "^subject: "
+color	  header          green              default  "^X-Spam-Index: "
+color	  header          green              default  "^X-Mailer: "
+# ip-Adresse des Mail-Hubs wird speziell hervorgehoben:
+color     header          black              default   '\[1.2.3.5\]'   
+
+color	  header          blue               default  "^Message-ID: "
+color	  header          brightblue         white    "^Return-Path: "
+color	  header          brightblue         default  "^to: "
+color	  header          brightblue         default  "^cc: "
+color	  header          brightblue         default  "^reply-to: "
+color	  index           green              default  ~F
+color	  index           red                default  ~D
+color	  index           blue               default  ~T
+color	  index           brightblue         default  ~N
+color	  indicator       brightwhite        brightblack
+color	  markers         red                default
+color	  quoted          magenta            default
+color	  signature       brightblue         default
+color	  status          brightwhite        green
+color	  tilde           cyan               default
+color	  tree            blue               default
+color	  body            black              default  "(^| )_[-a-z0-9_]+_[,.?]?[ \n]"
+color     body	          blue               default  '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'
+
+
+# --------------------------------------------------------------------------
+# VARIABLES - shown with their default values
+# --------------------------------------------------------------------------
+
+# Should the Sidebar be shown?
+set sidebar_visible = yes
+
+# How wide should the Sidebar be in screen columns?
+# Note: Some characters, e.g. Chinese, take up two columns each.
+set sidebar_width = 30
+
+# Should the mailbox paths be abbreviated?
+set sidebar_short_path = no
+
+# When abbreviating mailbox path names, use any of these characters as path
+# separators.  Only the part after the last separators will be shown.
+# For file folders '/' is good.  For IMAP folders, often '.' is useful.
+set sidebar_delim_chars = '/.'
+
+# If the mailbox path is abbreviated, should it be indented?
+set sidebar_folder_indent = no
+
+# Indent mailbox paths with this string.
+set sidebar_indent_string = '  '
+
+# Make the Sidebar only display mailboxes that contain new, or flagged,
+# mail.
+set sidebar_new_mail_only = yes
+
+# Any mailboxes that are whitelisted will always be visible, even if the
+# sidebar_new_mail_only option is enabled.
+sidebar_whitelist '~/.mutt/accounts/jrenslin/INBOX'
+sidebar_whitelist '~/.mutt/accounts/yahoo/Inbox'
+
+# When searching for mailboxes containing new mail, should the search wrap
+# around when it reaches the end of the list?
+set sidebar_next_new_wrap = no
+
+# Show the Sidebar on the right-hand side of the screen
+set sidebar_on_right = no
+
+# The character to use as the divider between the Sidebar and the other Mutt
+# panels.
+# Note: Only the first character of this string is used.
+set sidebar_divider_char = '|'
+
+# Enable extended buffy mode to calculate total, new, and flagged
+# message counts for each mailbox.
+set mail_check_stats
+
+# Display the Sidebar mailboxes using this format string.
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+
+# Sort the mailboxes in the Sidebar using this method:
+#       count    - total number of messages
+#       flagged  - number of flagged messages
+#       new      - number of new messages
+#       path     - mailbox path
+#       unsorted - do not sort the mailboxes
+set sidebar_sort_method = 'unsorted'
+
+# --------------------------------------------------------------------------
+# FUNCTIONS - shown with an example mapping
+# --------------------------------------------------------------------------
+
+# Move the highlight to the previous mailbox
+bind index,pager \Cp sidebar-prev
+
+# Move the highlight to the next mailbox
+bind index,pager \Cn sidebar-next
+
+# Open the highlighted mailbox
+bind index,pager \Co sidebar-open
+
+# Move the highlight to the previous page
+# This is useful if you have a LOT of mailboxes.
+bind index,pager <F3> sidebar-page-up
+
+# Move the highlight to the next page
+# This is useful if you have a LOT of mailboxes.
+bind index,pager <F4> sidebar-page-down
+
+# Move the highlight to the previous mailbox containing new, or flagged,
+# mail.
+bind index,pager <F5> sidebar-prev-new
+
+# Move the highlight to the next mailbox containing new, or flagged, mail.
+bind index,pager <F6> sidebar-next-new
+
+# Toggle the visibility of the Sidebar.
+bind index,pager B sidebar-toggle-visible
